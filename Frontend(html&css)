@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather Forecast</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            margin: 0;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .weather-container {
+            background-color: #fff;
+            padding: 20px;
+            margin: 0 auto;
+            max-width: 600px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .weather-container h2 {
+            margin-top: 0;
+        }
+
+        .forecast-item {
+            display: flex;
+            justify-content: space-between;
+            margin: 10px 0;
+        }
+
+        .forecast-item div {
+            flex: 1;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="weather-container">
+        <h2>Weather Forecast</h2>
+        <form method="POST">
+            <input type="text" name="city" placeholder="Enter city" required>
+            <button type="submit">Get Weather</button>
+        </form>
+
+        {% if weather %}
+            <h3>Current Weather in {{ weather.name }}</h3>
+            <p>{{ weather.weather[0].description | capitalize }}</p>
+            <p>Temperature: {{ weather.main.temp }}°C</p>
+            <p>Humidity: {{ weather.main.humidity }}%</p>
+            <p>Wind Speed: {{ weather.wind.speed }} m/s</p>
+        {% endif %}
+
+        {% if forecast %}
+            <h3>5-Day Forecast</h3>
+            {% for item in forecast.list %}
+                <div class="forecast-item">
+                    <div>{{ item.dt_txt }}</div>
+                    <div>{{ item.weather[0].description | capitalize }}</div>
+                    <div>{{ item.main.temp }}°C</div>
+                </div>
+            {% endfor %}
+        {% endif %}
+    </div>
+</body>
+</html>
