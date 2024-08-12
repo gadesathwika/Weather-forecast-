@@ -1,1 +1,2 @@
-# Weather-forecast-
+#setup
+pip install flask requests
